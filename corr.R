@@ -1,8 +1,9 @@
 corr <- function(directory, threshold = 0) {
-  for (fileId in 1:332) {
+  result <- numeric(length = 0)
+  for (fileId in subset(complete(directory), nobs>=threshold)$id) {
     data <- read.csv(sprintf('%s/%0.3d.csv', directory, fileId))
-    result <- rbind(result, data.frame('id'= fileId, 
-                                       'nobs'=nrow(data[complete.cases(data),])))
+    data_complete <- data[complete.cases(data),]
+    result <- c(result, cor(data_complete$sulfate,data_complete$nitrate))
   }
   result
 }
