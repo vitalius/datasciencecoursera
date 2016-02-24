@@ -1,9 +1,9 @@
 corr <- function(directory, threshold = 0) {
   result <- numeric(length = 0)
-  for (fileId in subset(complete(directory), nobs>=threshold)$id) {
+  for (fileId in subset(complete(directory), nobs >= threshold & nobs != 0)$id) {
     data <- read.csv(sprintf('%s/%0.3d.csv', directory, fileId))
-    data_complete <- data[complete.cases(data),]
-    result <- c(result, cor(data_complete$sulfate,data_complete$nitrate))
+    result <- c(result, cor(data[complete.cases(data),]$sulfate,
+                            data[complete.cases(data),]$nitrate))
   }
   result
 }
