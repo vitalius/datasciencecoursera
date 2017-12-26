@@ -1,0 +1,29 @@
+---
+title: "R Markdown Presentation & Plotly"
+author: "Vitaliy"
+date: "12/25/2017"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Dataset 
+
+```{r, message=FALSE}
+#install.packages("plotly")
+library(plotly)
+data("airquality")
+head(airquality)
+```
+
+## Simple plot
+```{r, message=FALSE, warning=FALSE}
+plot_ly(airquality, x = ~ Temp, y = ~ Ozone, type = "scatter", color = ~ factor(Month))
+```
+
+## Plot with sizes 
+```{r, warning=FALSE, message=FALSE}
+plot_ly(airquality, x = ~ Temp, y = ~ Ozone, type = "scatter", color = ~ factor(Month), size = ~Solar.R)
+```

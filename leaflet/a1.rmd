@@ -1,5 +1,5 @@
 ---
-title: "Assignment1"
+title: "Assignment 1"
 output: html_document
 ---
 
@@ -7,9 +7,9 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+## December 25, 2017
 
-December 25, 2017 - leaflet test
+leaflet test
 
 ```{r leaflet}
 library(leaflet)
