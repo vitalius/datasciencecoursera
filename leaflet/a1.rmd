@@ -1,0 +1,21 @@
+---
+title: "Assignment1"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+leaflet
+
+```{r leaflet}
+library(leaflet)
+
+m <- leaflet() %>%
+  addTiles() %>% 
+  addMarkers(lat=45.5260218, lng=-122.6832622, popup="Good Coffe!")
+m  # Print the map
+```
