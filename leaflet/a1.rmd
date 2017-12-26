@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## R Markdown
 
-leaflet
+December 25, 2017 - leaflet test
 
 ```{r leaflet}
 library(leaflet)
