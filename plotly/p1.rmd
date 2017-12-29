@@ -1,7 +1,7 @@
 ---
 title: "R Markdown Presentation & Plotly"
-author: "Vitaliy"
-date: "12/25/2017"
+author: "Vitaliy Pavlenko"
+date: "12/29/2017"
 output: ioslides_presentation
 ---
 
@@ -14,16 +14,16 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r, message=FALSE}
 #install.packages("plotly")
 library(plotly)
-data("airquality")
-head(airquality)
+data('mtcars')
+head(mtcars)
 ```
 
 ## Simple plot
 ```{r, message=FALSE, warning=FALSE}
-plot_ly(airquality, x = ~ Temp, y = ~ Ozone, type = "scatter", color = ~ factor(Month))
+plot_ly(mtcars, x = ~ mpg, y = ~ hp, type = "scatter", color = ~ factor(cyl))
 ```
 
 ## Plot with sizes 
 ```{r, warning=FALSE, message=FALSE}
-plot_ly(airquality, x = ~ Temp, y = ~ Ozone, type = "scatter", color = ~ factor(Month), size = ~Solar.R)
+plot_ly(mtcars, x = ~ mpg, y = ~ hp, type = "scatter", color = ~ factor(cyl), size = ~ qsec)
 ```
