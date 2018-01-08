@@ -1,0 +1,10 @@
+name: Publish Document
+title:
+username:
+account: rpubs
+server: rpubs.com
+hostUrl: rpubs.com
+appId: https://api.rpubs.com/api/v1/document/344357/9d671593ff484211bd6477ddb3faa2a3
+bundleId: https://api.rpubs.com/api/v1/document/344357/9d671593ff484211bd6477ddb3faa2a3
+url: http://rpubs.com/vitaliyp/344357
+when: 1514254325.25616

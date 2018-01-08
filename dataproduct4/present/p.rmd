@@ -1,0 +1,51 @@
+---
+title: "Cars Data Presentation"
+author: "Vitaliy Pavlenko"
+date: "1/7/2018"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+```
+
+## Dataset 
+
+### Source
+> Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411.
+
+```{r, message=FALSE}
+library(datasets)
+head(mtcars, 3)
+```
+
+## Dataset format
+
+**A data frame with 32 observations on 11 variables.**
+
+| Index | Field | Detail |
+------- | ----- | ------ |
+| [, 1] | mpg | Miles/(US) gallon |
+| [, 2] | cyl | Number of cylinders |
+| [, 3]	| disp | Displacement (cu.in.) |
+| [, 4]	| hp | Gross horsepower |
+| [, 5]	| drat | Rear axle ratio |
+| [, 6]	| wt | Weight (lb/1000) |
+| [, 7]	| qsec | 1/4 mile time |
+| [, 8]	| vs | V/S |
+| [, 9]	| am | Transmission (0 = automatic, 1 = manual) |
+| [,10]	| gear | Number of forward gears |
+| [,11]	| carb | Number of carburetors |
+---
+
+## Analysis, Server function
+```r
+shinyServer(function(input, output) {
+  output$mpgPlot <- renderPlot({
+    # generate plot from input from ui.R
+    data = subset(mtcars, cyl==input$cyl)
+    plot(mpg ~ disp, data = data)
+  })
+})
+```

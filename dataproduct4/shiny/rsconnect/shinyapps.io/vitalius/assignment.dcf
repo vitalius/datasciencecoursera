@@ -1,0 +1,12 @@
+name: assignment
+title:
+username:
+account: vitalius
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 254668
+bundleId: 1166223
+url: https://vitalius.shinyapps.io/assignment/
+when: 1515382018.79479
+asMultiple: FALSE
+asStatic: FALSE
