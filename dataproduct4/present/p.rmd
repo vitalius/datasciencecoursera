@@ -1,5 +1,5 @@
 ---
-title: "Cars Data Presentation"
+title: "Presidential Approval App"
 author: "Vitaliy Pavlenko"
 date: "1/7/2018"
 output: ioslides_presentation
@@ -12,40 +12,59 @@ library(plotly)
 
 ## Dataset 
 
-### Source
-> Henderson and Velleman (1981), Building multiple regression models interactively. Biometrics, 37, 391–411.
+### Source:
+> The (approximately) quarterly approval rating for the President of the United States from the first quarter of 1945 to the last quarter of 1974.
 
-```{r, message=FALSE}
+### Preview:
+```{r, message=FALSE, echo=TRUE}
 library(datasets)
-head(mtcars, 3)
+window(presidents, start=c(1956,1), end=c(1960,1))
 ```
 
-## Dataset format
+## Data Transforms
 
-**A data frame with 32 observations on 11 variables.**
+Convert Time-series to Data-Frame
 
-| Index | Field | Detail |
-------- | ----- | ------ |
-| [, 1] | mpg | Miles/(US) gallon |
-| [, 2] | cyl | Number of cylinders |
-| [, 3]	| disp | Displacement (cu.in.) |
-| [, 4]	| hp | Gross horsepower |
-| [, 5]	| drat | Rear axle ratio |
-| [, 6]	| wt | Weight (lb/1000) |
-| [, 7]	| qsec | 1/4 mile time |
-| [, 8]	| vs | V/S |
-| [, 9]	| am | Transmission (0 = automatic, 1 = manual) |
-| [,10]	| gear | Number of forward gears |
-| [,11]	| carb | Number of carburetors |
----
+```{r, eval=FALSE, echo=TRUE}
+pdata = pdata = data.frame(r=as.matrix(presidents), t=time(presidents))
+```
 
-## Analysis, Server function
-```r
-shinyServer(function(input, output) {
-  output$mpgPlot <- renderPlot({
-    # generate plot from input from ui.R
-    data = subset(mtcars, cyl==input$cyl)
-    plot(mpg ~ disp, data = data)
-  })
-})
+Filter for a particular year, specified by input
+```{r, eval=FALSE, echo=TRUE}
+ydata = pdata[which(pdata$t>=(input$year) & pdata$t<(input$year+1)),]
+```
+
+
+## Server-side plotting
+
+Following script was used for generating plots
+
+```{r, eval=FALSE, echo=TRUE}
+    x = c(1,2,3,4)
+    plot(x, ydata$r, xlab="Quater", ylab="Rating", 
+         main=paste("Year", input$year, sep=" "),
+         xlim=c(1,4), ylim=c(0,100), xaxt="n", col="blue")
+    axis(1, at = seq(1, 4, by = 1), las=2)
+    abline(lm(ydata$r ~ x), col="blue")
+    points(x, c(input$q1,input$q2,input$q3,input$q4), pch=20, col="red")
+    legend(1, 95, legend=c("Dataset", "Current Input"),
+           col=c("blue", "red"), lty=1:1, cex=0.8)
+```
+
+## Interesting Findings
+
+It seems that from the dataset, only president Nixon (1974) had lower approval ratings than Trump (2017)
+```{r, message=FALSE}
+    pdata = pdata = data.frame(r=as.matrix(presidents), t=time(presidents))
+    ydata = pdata[which(pdata$t>=(1974) & pdata$t<(1974+1)),]
+    
+    x = c(1,2,3,4)
+    plot(x, ydata$r, xlab="Quater", ylab="Rating", 
+         main=paste("Year", 1974, sep=" "),
+         xlim=c(1,4), ylim=c(0,100), xaxt="n", col="blue")
+    axis(1, at = seq(1, 4, by = 1), las=2)
+    abline(lm(ydata$r ~ x), col="blue")
+    points(x, c(41.3,38.8,36.9,32.0), pch=20, col="red")
+    legend(1, 95, legend=c("Dataset", "Current Input"),
+           col=c("blue", "red"), lty=1:1, cex=0.8)
 ```
